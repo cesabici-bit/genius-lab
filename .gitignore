@@ -1,0 +1,26 @@
+# Environment
+.env
+.env.*
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Claude Code local
+.claude/
+.playwright-mcp/
+
+# Large media (keep in repo only if needed)
+# *.jpeg
+# *.png

@@ -1,0 +1,110 @@
+# CLAUDE.md — {{PROJECT_NAME}}
+
+## Progetto
+**{{PROJECT_NAME}}** — {{ONE_LINE_DESCRIPTION}}
+
+## Obiettivo
+{{OBIETTIVO_PRINCIPALE}}
+
+## Stack Tecnico
+
+| Componente | Tecnologia | Versione | Motivo |
+|-----------|-----------|---------|--------|
+| {{componente}} | {{tech}} | {{ver}} | {{motivo}} |
+
+> IMPORTANT: ogni dipendenza DEVE avere entry verificata in `verified-deps.toml`
+
+## Architettura
+
+```
+{{DIAGRAMMA_COMPONENTI}}
+```
+
+## MVP Scope
+
+### IN (MVP)
+- [ ] {{feature_1}}
+- [ ] {{feature_2}}
+
+### OUT (post-MVP)
+- {{feature_futura_1}}
+
+## Oracoli di Dominio
+
+| Livello | Fonte | Uso |
+|---------|-------|-----|
+| L2 (sanity) | {{fonte_l2}} | {{come_usata}} |
+| L5 (reale) | {{fonte_l5}} | {{come_usata}} |
+
+> Questi oracoli sono la base per i test L2/L5. Ogni test DEVE citare la fonte con `# SOURCE:`.
+
+## Subtask Correnti
+
+| # | Subtask | Input | Output | Pass/Fail | Status |
+|---|---------|-------|--------|-----------|--------|
+| {{N}} | {{descrizione}} | {{input}} | {{output}} | {{criterio}} | {{status}} |
+
+## Meccanismi Anti-Allucinazione (M1-M4)
+
+### M1: Dependency Lock
+- File: `verified-deps.toml`
+- Regola: NESSUNA dipendenza nel codice senza entry verificata via web search
+
+### M2: External Oracle Test Pattern
+- Regola: ogni test file DEVE avere almeno 1 test con `# SOURCE:` da oracolo esterno
+- Oracoli di questo progetto: vedi tabella sopra
+
+### M3: Smoke Before Unit
+- Sequenza obbligatoria: smoke test E2E -> unit test -> property-based test
+- Lo smoke test produce output leggibile dall'umano e diventa golden snapshot (L4)
+
+### M4: Two-Tool Verification
+{{SE_NUMERICO: directory `verify/` con script che risolvono lo stesso problema con tool diverso}}
+{{SE_NON_NUMERICO: Non applicabile a questo progetto}}
+
+## Workflow con Phase Gates
+
+Vedi `genius-lab/CLAUDE.md` per il workflow completo. Phase gates specifici di questo progetto:
+
+### Gate Ricerca
+- [ ] {{criterio_specifico}}
+
+### Gate Architettura
+- [ ] {{criterio_specifico}}
+
+### Gate Implementazione (per subtask)
+- [ ] `make check-all` verde
+- [ ] Output ispezionabile dall'utente
+
+### Gate Verifica
+- [ ] L1: unit test path critici
+- [ ] L2: almeno 3 test con `# SOURCE:`
+- [ ] L3: property-based sulle invarianti core
+- [ ] L4: golden snapshot revisionato dall'umano
+- [ ] L5: {{confronto_specifico}}
+
+## Protocollo Correzione Errori
+
+Vedi `genius-lab/CLAUDE.md` per il decision tree completo.
+Errori specifici di questo progetto vanno in `KNOWN_ISSUES.md`.
+
+## Checkpoint Utente Obbligatori
+- [ ] {{checkpoint_1}}
+- [ ] {{checkpoint_2}}
+- [ ] Prima del release
+
+## Comandi
+
+```bash
+# Build
+{{BUILD_COMMAND}}
+
+# Test
+{{TEST_COMMAND}}
+
+# Check completo
+make check-all
+
+# Smoke test
+make smoke
+```

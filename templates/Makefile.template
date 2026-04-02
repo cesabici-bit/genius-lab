@@ -1,0 +1,88 @@
+# Makefile — {{PROJECT_NAME}}
+# Target principale: `make check-all` esegue TUTTI i controlli in sequenza.
+# Se uno fallisce, i successivi NON vengono eseguiti.
+
+# ============================================================
+# Configurazione — adattare al progetto
+# ============================================================
+
+# Linguaggio primario: rust | python | node
+LANG ?= {{LANG}}
+
+# ============================================================
+# Target comuni
+# ============================================================
+
+.PHONY: check-all types lint test smoke deps clean
+
+## check-all: Esegue tutti i controlli (types, lint, test, smoke, deps)
+check-all: deps types lint test smoke
+	@echo ""
+	@echo "=== ALL CHECKS PASSED ==="
+	@echo ""
+
+# ============================================================
+# Rust targets (decommentare se LANG=rust)
+# ============================================================
+
+# types:
+# 	cargo check
+
+# lint:
+# 	cargo clippy -- -D warnings
+
+# test:
+# 	cargo test
+
+# smoke:
+# 	cargo run -- {{SMOKE_COMMAND}}
+
+# ============================================================
+# Python targets (decommentare se LANG=python)
+# ============================================================
+
+# types:
+# 	mypy src/
+
+# lint:
+# 	ruff check src/ tests/
+
+# test:
+# 	pytest tests/ -v
+
+# smoke:
+# 	python -m {{MODULE}} {{SMOKE_ARGS}}
+
+# ============================================================
+# Node targets (decommentare se LANG=node)
+# ============================================================
+
+# types:
+# 	npx tsc --noEmit
+
+# lint:
+# 	npx eslint src/
+
+# test:
+# 	npx vitest run
+
+# smoke:
+# 	node src/index.js {{SMOKE_ARGS}}
+
+# ============================================================
+# Dependency verification (comune a tutti)
+# ============================================================
+
+## deps: Verifica che verified-deps.toml esista e non sia vuoto
+deps:
+	@echo "--- Checking verified-deps.toml ---"
+	@test -f verified-deps.toml || (echo "ERROR: verified-deps.toml not found" && exit 1)
+	@echo "verified-deps.toml found"
+
+# ============================================================
+# Utility
+# ============================================================
+
+clean:
+	@echo "Cleaning build artifacts..."
+	# Adattare al progetto

@@ -1,0 +1,19 @@
+# Status — {{PROJECT_NAME}}
+
+## Fase Corrente
+{{FASE}} — {{DESCRIZIONE}}
+
+## Ultimo Subtask Completato
+_(nessuno)_
+
+## Prossimo Subtask
+{{PROSSIMO_SUBTASK}}
+
+## Blockers
+Nessuno
+
+## Log Sessioni
+- {{DATA}}: Progetto inizializzato.
+
+## File Modificati Ultima Sessione
+_(nessuno)_

@@ -1,0 +1,17 @@
+# verified-deps.toml — {{PROJECT_NAME}}
+#
+# REGOLA: nessuna dipendenza nel codice senza entry verificata qui.
+# Per aggiungere una dipendenza:
+#   1. Web search per documentazione ufficiale
+#   2. Verificare che la versione esista e che i metodi usati siano documentati
+#   3. Aggiungere entry qui con data e fonte di verifica
+#   4. Solo DOPO usare la dipendenza nel codice
+
+# Esempio:
+# [[dependency]]
+# name = "serde"
+# version = "1.0.210"
+# verified_date = "2026-03-12"
+# verified_via = "https://docs.rs/serde/1.0.210"
+# methods_used = ["Serialize", "Deserialize", "serde_json::to_string"]
+# notes = ""
