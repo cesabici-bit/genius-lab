@@ -1,0 +1,43 @@
+Metadata-Version: 2.4
+Name: nuclearmind
+Version: 0.1.0
+Summary: Explainable AI Digital Twin for Nuclear Reactor Safety
+Author: Genius Lab
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/cesabici-bit/genius-lab
+Project-URL: Repository, https://github.com/cesabici-bit/genius-lab
+Keywords: nuclear,digital-twin,xai,gnn,conformal-prediction,safety
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.26
+Requires-Dist: scipy>=1.12
+Requires-Dist: h5py>=3.10
+Provides-Extra: ml
+Requires-Dist: torch>=2.4; extra == "ml"
+Requires-Dist: torch-geometric>=2.5; extra == "ml"
+Requires-Dist: MAPIE>=1.0; extra == "ml"
+Requires-Dist: captum>=0.7; extra == "ml"
+Requires-Dist: torch-uncertainty>=0.9; extra == "ml"
+Provides-Extra: xai
+Requires-Dist: shap>=0.50; extra == "xai"
+Provides-Extra: quality
+Requires-Dist: cleanlab>=2.6; extra == "quality"
+Requires-Dist: alibi-detect[torch]>=0.12; extra == "quality"
+Provides-Extra: dashboard
+Requires-Dist: streamlit>=1.30; extra == "dashboard"
+Requires-Dist: matplotlib>=3.8; extra == "dashboard"
+Requires-Dist: plotly>=5.18; extra == "dashboard"
+Provides-Extra: openmc
+Provides-Extra: all
+Requires-Dist: nuclearmind[dashboard,ml,quality,xai]; extra == "all"
+Provides-Extra: dev
+Requires-Dist: pytest>=9.0; extra == "dev"
+Requires-Dist: hypothesis>=6.100; extra == "dev"
+Requires-Dist: mypy>=1.10; extra == "dev"
+Requires-Dist: ruff>=0.4; extra == "dev"
