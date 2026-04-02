@@ -1,0 +1,164 @@
+# verified-deps.toml — NuclearMind
+#
+# REGOLA: nessuna dipendenza nel codice senza entry verificata qui.
+# Per aggiungere una dipendenza:
+#   1. Web search per documentazione ufficiale
+#   2. Verificare che la versione esista e che i metodi usati siano documentati
+#   3. Aggiungere entry qui con data e fonte di verifica
+#   4. Solo DOPO usare la dipendenza nel codice
+
+# ============================================================
+# Core ML / Deep Learning
+# ============================================================
+
+[[dependency]]
+name = "PyTorch"
+version = "2.11.0"
+pypi_name = "torch"
+verified_date = "2026-04-02"
+verified_via = "https://pytorch.org/docs/stable/"
+methods_used = ["torch.nn.Module", "torch.optim.Adam", "torch.utils.data.DataLoader", "torch.nn.functional"]
+notes = "Core DL framework. Python >=3.10."
+
+[[dependency]]
+name = "PyTorch Geometric"
+version = "2.7.0"
+pypi_name = "torch-geometric"
+verified_date = "2026-04-02"
+verified_via = "https://pytorch-geometric.readthedocs.io/"
+methods_used = ["torch_geometric.nn.SAGEConv", "torch_geometric.nn.models.GraphSAGE", "torch_geometric.data.Data", "torch_geometric.loader.DataLoader"]
+notes = "GNN framework. ATTENZIONE: DataLoader importato da torch_geometric.loader, NON torch_geometric.data (deprecato). Python >=3.10, compatibile con PyTorch 2.8+."
+
+# ============================================================
+# Uncertainty Quantification
+# ============================================================
+
+[[dependency]]
+name = "MAPIE"
+version = "1.3.0"
+pypi_name = "MAPIE"
+verified_date = "2026-04-02"
+verified_via = "https://mapie.readthedocs.io/"
+methods_used = ["mapie.regression.SplitConformalRegressor", "mapie.regression.CrossConformalRegressor"]
+notes = """BREAKING CHANGE in v1.0+: MapieRegressor NON esiste piu'.
+Nuova API: SplitConformalRegressor / CrossConformalRegressor.
+- 'alpha' sostituito da 'confidence_level' (= 1 - alpha)
+- Workflow: fit() + conformalize() (2 step, non piu' singolo fit)
+- NON usare esempi pre-v1.0 dalla documentazione vecchia."""
+
+[[dependency]]
+name = "TorchUncertainty"
+version = "0.11.0"
+pypi_name = "torch-uncertainty"
+verified_date = "2026-04-02"
+verified_via = "https://torch-uncertainty.github.io/"
+methods_used = ["deep_ensembles()", "CalibrationError", "AdaptiveCalibrationError", "TemperatureScaler"]
+notes = "Deep ensembles + calibration. Built on PyTorch Lightning. API saltata da 0.7 a 0.11 — verificare imports esatti prima di usare. NeurIPS D&B 2025."
+
+# ============================================================
+# Explainability
+# ============================================================
+
+[[dependency]]
+name = "SHAP"
+version = "0.51.0"
+pypi_name = "shap"
+verified_date = "2026-04-02"
+verified_via = "https://shap.readthedocs.io/"
+methods_used = ["shap.Explainer", "shap.DeepExplainer", "shap.GradientExplainer", "shap.KernelExplainer"]
+notes = "ATTENZIONE: richiede Python >=3.11 (dropped 3.10 in 0.50+). 25K+ stars. KernelExplainer come fallback se DeepExplainer non compatibile con PyG."
+
+[[dependency]]
+name = "Captum"
+version = "0.8.0"
+pypi_name = "captum"
+verified_date = "2026-04-02"
+verified_via = "https://captum.ai/"
+methods_used = ["captum.attr.IntegratedGradients", "captum.attr.LayerIntegratedGradients"]
+notes = "PyTorch interpretability. Usare LayerIntegratedGradients (non LayerAttribution che e' base class astratta)."
+
+# ============================================================
+# Data Quality & Drift Detection
+# ============================================================
+
+[[dependency]]
+name = "Cleanlab"
+version = "2.9.0"
+pypi_name = "cleanlab"
+verified_date = "2026-04-02"
+verified_via = "https://docs.cleanlab.ai/stable/"
+methods_used = ["cleanlab.classification.CleanLearning", "cleanlab.rank.get_self_confidence_for_each_label", "cleanlab.rank.get_label_quality_scores"]
+notes = "Data quality, label error detection. 11K+ stars. Python >=3.10."
+
+[[dependency]]
+name = "Alibi Detect"
+version = "0.13.0"
+pypi_name = "alibi-detect"
+verified_date = "2026-04-02"
+verified_via = "https://docs.seldon.io/projects/alibi-detect/en/stable/"
+methods_used = ["alibi_detect.cd.TabularDrift", "alibi_detect.od.OutlierVAE"]
+notes = "ATTENZIONE: installare con pip install alibi-detect[torch] per evitare di tirare TensorFlow come backend. TabularDrift usa K-S per continuous, Chi2 per categorical."
+
+# ============================================================
+# Simulation (Data Generation)
+# ============================================================
+
+[[dependency]]
+name = "OpenMC"
+version = "0.15.3"
+pypi_name = "N/A"
+verified_date = "2026-04-02"
+verified_via = "https://docs.openmc.org/en/stable/"
+methods_used = ["openmc.Material", "openmc.Geometry", "openmc.Settings", "openmc.run()", "openmc.Tally", "openmc.StatePoint"]
+notes = """NON su PyPI. Installare via: conda install -c conda-forge openmc
+Richiede cross-section data ENDF/B-VIII.0 (~2GB download).
+Variabile env: OPENMC_CROSS_SECTIONS deve puntare al file cross_sections.xml.
+Su Windows: usare conda-forge o WSL."""
+
+# ============================================================
+# Data Storage
+# ============================================================
+
+[[dependency]]
+name = "h5py"
+version = "3.15.1"
+pypi_name = "h5py"
+verified_date = "2026-04-02"
+verified_via = "https://docs.h5py.org/en/stable/"
+methods_used = ["h5py.File", "h5py.Dataset", "h5py.Group"]
+notes = "HDF5 file handling. v3.12.0 era yanked per bug Windows. v3.15.1 stabile."
+
+# ============================================================
+# Dashboard
+# ============================================================
+
+[[dependency]]
+name = "Streamlit"
+version = "1.56.0"
+pypi_name = "streamlit"
+verified_date = "2026-04-02"
+verified_via = "https://docs.streamlit.io/"
+methods_used = ["st.write", "st.plotly_chart", "st.sidebar", "st.cache_resource", "st.cache_data"]
+notes = "Dashboard prototipazione. Usare @st.cache_resource per model loading, @st.cache_data per dataset."
+
+# ============================================================
+# Testing
+# ============================================================
+
+[[dependency]]
+name = "pytest"
+version = "9.0.2"
+pypi_name = "pytest"
+verified_date = "2026-04-02"
+verified_via = "https://docs.pytest.org/"
+methods_used = ["pytest.fixture", "pytest.mark", "pytest.raises"]
+notes = ""
+
+[[dependency]]
+name = "Hypothesis"
+version = "6.151.10"
+pypi_name = "hypothesis"
+verified_date = "2026-04-02"
+verified_via = "https://hypothesis.readthedocs.io/"
+methods_used = ["hypothesis.given", "hypothesis.strategies"]
+notes = "Property-based testing. Plugin pytest built-in."
